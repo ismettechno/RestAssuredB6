@@ -1,3 +1,4 @@
+import io.restassured.http.ContentType;
 import org.testng.annotations.Test;
 
 import static io.restassured.RestAssured.*;
@@ -21,5 +22,64 @@ public class _01_ApiTest {
         ;
     }
 
+    @Test
+    public void statusCodeTest()
+    {
+        given()
+
+                .when()
+                .get("http://api.zippopotam.us/us/90210")
+
+                .then()
+                .log().body()  // dönen datat kısmı
+                //.log().all()  //dönen bütün bilgileri
+                .statusCode(200)    // dönen değer 200 e eşitmi, assert
+        ;
+    }
+
+    @Test
+    public void contentTypeTest()
+    {
+        given()
+
+                .when()
+                .get("http://api.zippopotam.us/us/90210")
+
+                .then()
+                .log().body()  // dönen datat kısmı
+                .statusCode(200)    // dönen değer 200 e eşitm i, assert
+                .contentType(ContentType.JSON)   // dönen data nın tipi JSON mı
+        ;
+    }
+
+
+    @Test
+    public void checkCountryInResponseBody()
+    {
+        given()
+
+                .when()
+                .get("http://api.zippopotam.us/us/90210")
+
+                .then()
+                .log().body()  // dönen datat kısmı
+                .statusCode(200)    // dönen değer 200 e eşitm i, assert
+                .contentType(ContentType.JSON)   // dönen data nın tipi JSON mı
+        ;
+    }
+
 
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
