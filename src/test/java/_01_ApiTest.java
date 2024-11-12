@@ -2,6 +2,7 @@ import io.restassured.http.ContentType;
 import org.testng.annotations.Test;
 
 import static io.restassured.RestAssured.*;
+import static org.hamcrest.Matchers.*;
 
 public class _01_ApiTest {
 
@@ -65,8 +66,18 @@ public class _01_ApiTest {
                 .log().body()  // dönen datat kısmı
                 .statusCode(200)    // dönen değer 200 e eşitm i, assert
                 .contentType(ContentType.JSON)   // dönen data nın tipi JSON mı
+                .body("country", equalTo("United States"))// country yi dışarı almadan
+        // bulundu yeri (path i) vererek içerde assertion yapıyorum.Bunu hamcrest kütüphanesi yapıyor
+
+//        pm.test("Ulke Bulunamadı", function () {
+//        pm.expect(pm.response.json().message).to.eql("Country not found");
+//    });
+
         ;
     }
+
+
+
 
 
 }
