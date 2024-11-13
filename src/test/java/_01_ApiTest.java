@@ -32,7 +32,7 @@ public class _01_ApiTest {
                 .get("http://api.zippopotam.us/us/90210")
 
                 .then()
-                .log().body()  // dönen datat kısmı
+                .log().body()  // dönen data kısmı
                 //.log().all()  //dönen bütün bilgileri
                 .statusCode(200)    // dönen değer 200 e eşitmi, assert
         ;
@@ -76,8 +76,35 @@ public class _01_ApiTest {
         ;
     }
 
+    @Test
+    public void checkCountryInResponseBody2() {
+        // Soru : "http://api.zippopotam.us/us/90210"  endpoint indne dönen
+        // place dizisinin ilk elemanının state değerinin  "California"
+        // olduğunu doğrulayınız
+
+        given()
+
+                .when()
+                .get("http://api.zippopotam.us/us/90210")
+
+                .then()
+                .log().body()
+                .body("places[0].state", equalTo("California"))
+        ;
+    }
+
+    @Test
+    public void checkHasItem() {
+        // Soru : "http://api.zippopotam.us/tr/01000"  endpoint in dönen
+        // place dizisinin herhangi bir elemanında  "Dörtağaç Köyü" değerinin
+        // olduğunu doğrulayınız
 
 
+
+
+
+
+    }
 
 
 }
