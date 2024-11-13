@@ -128,6 +128,66 @@ public class _01_ApiTest {
     }
 
 
+    @Test
+    public void combiningTest() {
+
+        given()
+
+                .when()
+                .get("http://api.zippopotam.us/us/90210")
+
+                .then()
+                .body("places", hasSize(1)) // places in eleman uzunluğuı 1 mi
+                .body("places[0].state", equalTo("California"))
+                .body("places.'place name'", hasItem("Beverly Hills"))
+                // Yukarıda olduğu gibi istenilen kadar test eklenebilir.
+        ;
+    }
+
+
+    @Test
+    public void pathParamTest(){
+
+        given()
+                .pathParam("ulke", "us")
+                .pathParam("postaKodu", 90210)
+                .log().uri()  // oluşacak endpoint i yazdıralım
+
+                .when()
+                .get("http://api.zippopotam.us/{ulke}/{postaKodu}")  // path param
+
+                .then()
+                .log().body()
+        ;
+    }
+
+    @Test
+    public void queryParamTest() {
+        //https://gorest.co.in/public/v1/users?page=3
+
+        given()
+                .param("page",3)
+                .log().uri()
+
+                .when()
+                .get("https://gorest.co.in/public/v1/users")  // URL kısmını buraya yazıldı
+
+                .then()
+                .log().body()
+        ;
+    }
+
+    @Test
+    public void queryParamTest2() {
+        // https://gorest.co.in/public/v1/users?page=3
+        // bu linkteki 1 den 10 kadar sayfaları çağırdığınızda response daki donen page degerlerinin
+        // çağrılan page nosu ile aynı olup olmadığını kontrol ediniz.
+
+
+    }
+
+
+
 
 
 
