@@ -89,7 +89,7 @@ public class _01_ApiTest {
 
                 .then()
                 .log().body()
-                .body("places[0].state", equalTo("California"))
+                .body("places[0].state", equalTo("California")) // places in 0.elemanının state i California mı ?
         ;
     }
 
@@ -99,12 +99,36 @@ public class _01_ApiTest {
         // place dizisinin herhangi bir elemanında  "Dörtağaç Köyü" değerinin
         // olduğunu doğrulayınız
 
+        given()
 
+                .when()
+                .get("http://api.zippopotam.us/tr/01000")
 
+                .then()
+                .body("places.'place name'", hasItem("Dörtağaç Köyü"))//places içindeki bütün place name ler in
+                                                                      // içinde Dörtağaç Köyü var mı
+        ;
+    }
 
+    @Test
+    public void bodyArrayHasSizeTest() {
+        // Soru : "http://api.zippopotam.us/us/90210"  endpoint in dönen
+        // place dizisinin dizi uzunluğunun 1 olduğunu doğrulayınız.
+
+        given()
+
+                .when()
+                .get("http://api.zippopotam.us/us/90210")
+
+                .then()
+                .body("places", hasSize(1)) // places in eleman uzunluğuı 1 mi
+        ;
 
 
     }
+
+
+
 
 
 }
