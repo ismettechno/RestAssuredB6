@@ -85,4 +85,15 @@ public class _06_PathAndJsonPath {
     }
 
 
+    @Test
+    public void getUsersV1(){
+        // https://gorest.co.in/public/v1/users  endpointte dönen Sadece Data Kısmını POJO
+        // dönüşümü ile alarak yazdırınız.
+
+
+
+
+    }
+
+
 }
