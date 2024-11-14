@@ -1,5 +1,6 @@
 
 import io.restassured.http.ContentType;
+import org.testng.Assert;
 import org.testng.annotations.Test;
 
 import static io.restassured.RestAssured.*;
@@ -16,8 +17,7 @@ public class _05_Tasks {
      */
 
     @Test
-    public void Task1()
-    {
+    public void Task1() {
         given()
 
                 .when()
@@ -35,13 +35,36 @@ public class _05_Tasks {
      * create a request to https://jsonplaceholder.typicode.com/todos/2
      * expect status 200
      * expect content type JSON
-     *a) expect response completed status to be false(hamcrest)
-     *b) extract completed field and testNG assertion(testNG)
+     * a) expect response completed status to be false(hamcrest)
+     * b) extract completed field and testNG assertion(testNG)
      */
 
+    @Test
+    public void Task2() {
+        //a)
+        given()
 
+                .when()
+                .get("https://jsonplaceholder.typicode.com/todos/2")
+                .then()
+                .statusCode(200)
+                .contentType(ContentType.JSON)
+                .body("completed", equalTo(false)); //hemcrest ile assertion
+        ;
 
+        //b)
+        boolean complatedData =
+                given()
 
+                        .when()
+                        .get("https://jsonplaceholder.typicode.com/todos/2")
+                        .then()
+                        .statusCode(200)
+                        .contentType(ContentType.JSON)
+                        .extract().path("completed");
+
+        Assert.assertFalse(complatedData);
+    }
 
 
 }
