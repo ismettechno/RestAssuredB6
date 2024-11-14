@@ -1,4 +1,5 @@
 
+import Model.ToDo;
 import io.restassured.http.ContentType;
 import org.testng.Assert;
 import org.testng.annotations.Test;
@@ -65,6 +66,32 @@ public class _05_Tasks {
 
         Assert.assertFalse(complatedData);
     }
+
+    /** Task 3
+     * create a request to https://jsonplaceholder.typicode.com/todos/2
+     * Converting Into POJO body data and write
+     */
+
+    @Test
+    public void Task3(){
+
+        ToDo todoNesnesi=
+        given()
+
+
+                .when()
+                .get("https://jsonplaceholder.typicode.com/todos/2")
+
+                .then()
+                .extract().body().as(ToDo.class)
+        ;
+
+        System.out.println("todoNesnesi = " + todoNesnesi);
+        Assert.assertEquals( todoNesnesi.getId() , 2);
+    }
+
+
+
 
 
 }
