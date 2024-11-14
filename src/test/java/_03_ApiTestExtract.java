@@ -2,6 +2,9 @@
 import org.testng.Assert;
 import org.testng.annotations.Test;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import static io.restassured.RestAssured.*;
 
 public class _03_ApiTestExtract {
@@ -58,5 +61,30 @@ public class _03_ApiTestExtract {
         System.out.println("limit = " + limit);
         Assert.assertTrue(limit == 10);
     }
+
+    @Test
+    public void extractingJsonPath4() {
+        // Soru : "https://gorest.co.in/public/v1/users"  endpoint in den dönen
+        // data daki bütün id leri nasıl alırız
+
+        ArrayList<Integer> idler=
+                given()
+                        .when()
+                        .get("https://gorest.co.in/public/v1/users")
+
+                        .then()
+                        .extract().path("data.id")
+                ;
+
+        System.out.println("idler = " + idler);
+    }
+
+    @Test
+    public void extractingJsonPath5() {
+        // Soru : "https://gorest.co.in/public/v1/users"  endpoint in den dönen
+        // bütün name leri yazdırınız.
+
+    }
+
 
 }
