@@ -59,15 +59,42 @@ public class _07_GoRestUsersTest {
         System.out.println("userID = " + userID);
     }
 
-
-    @Test
+    // GetUserById testini yapınız
+    @Test(dependsOnMethods = "CreateUser")
     public void GetUserById() {
 
+        given()
+                .spec(reqSpec)
+                .log().uri()
 
+                .when()
+                .get("users/"+userID)
 
+                .then()
+                .log().body()
+                .statusCode(200)
+                .body("id",equalTo(userID))
+        ;
     }
 
 
+
+
+
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
