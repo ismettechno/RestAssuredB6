@@ -8,6 +8,7 @@ import io.restassured.builder.RequestSpecBuilder;
 import io.restassured.http.ContentType;
 import io.restassured.specification.RequestSpecification;
 import org.testng.annotations.BeforeClass;
+import org.testng.annotations.Test;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -29,19 +30,13 @@ public class _07_GoRestUsersTest {
                 .build();
     }
 
+    @Test
     public void CreateUser()
     {
-        //body mi hazırlayacağım
-//        {
-//            "name":"{{$randomFullName}}",
-//                "gender":"Male",
-//                "email":"{{$randomEmail}}",
-//                "status":"active"
-//        }
         String rndFullName= randomUreteci.name().fullName();
         String rndEMail= randomUreteci.internet().emailAddress();
 
-        Map<String,String> newUser=new HashMap<>();
+        Map<String,String> newUser=new HashMap<>(); // postman deki body kısmı map olarak hazırlandı
         newUser.put("name",rndFullName);
         newUser.put("gender","Male");
         newUser.put("email",rndEMail);
@@ -55,9 +50,9 @@ public class _07_GoRestUsersTest {
                 .post("users")  // http ile başlamıyorsa baseURI başına geliyor
 
                 .then()
-
+                .log().body()
+                .statusCode(201)
         ;
-
     }
 
 }
