@@ -17,7 +17,7 @@ public class _07_GoRestUsersTest {
 
     Faker randomUreteci=new Faker();
     RequestSpecification reqSpec;
-
+    int userID=0;
 
     @BeforeClass
     public void Setup()
@@ -42,6 +42,7 @@ public class _07_GoRestUsersTest {
         newUser.put("email",rndEMail);
         newUser.put("status","active");
 
+        userID=
         given()
                 .spec(reqSpec)
                 .body(newUser)
@@ -52,7 +53,21 @@ public class _07_GoRestUsersTest {
                 .then()
                 .log().body()
                 .statusCode(201)
+                .extract().path("id")
         ;
+
+        System.out.println("userID = " + userID);
     }
 
+
+    @Test
+    public void GetUserById() {
+
+
+
+    }
+
+
 }
+
+
