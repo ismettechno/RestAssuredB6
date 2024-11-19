@@ -21,6 +21,7 @@ public class _09_CountryTest {
     RequestSpecification reqSpec;
     String ulkeAdi = "";
     String ulkeKodu = "";
+    String ulkeID="";
 
     @BeforeClass
     public void Setup() {
@@ -61,16 +62,18 @@ public class _09_CountryTest {
         createCountry.put("name", ulkeAdi);
         createCountry.put("code", ulkeKodu);
 
+        ulkeID =
         given()
                 .spec(reqSpec)
                 .body(createCountry)
 
                 .when()
-                .post("school-service/api/countries")
+                .post("/school-service/api/countries")
 
                 .then()
                 .log().body()
                 .statusCode(201)
+                .extract().path("id")
         ;
     }
 
@@ -87,7 +90,7 @@ public class _09_CountryTest {
                 .body(createCountry)
 
                 .when()
-                .post("school-service/api/countries")
+                .post("/school-service/api/countries")
 
                 .then()
                 .log().body()
@@ -98,11 +101,30 @@ public class _09_CountryTest {
     }
 
 
-    @Test
+    @Test(dependsOnMethods = "CreateCountryNegative")
     public void updateCountry()  {
 
+        ulkeAdi ="ismet Ülkesi 1";
+        ulkeKodu="is12345";
 
+        Map<String, String> updCountry = new HashMap<>();
+        updCountry.put("id",  ulkeID);
+        updCountry.put("name", ulkeAdi);
+        updCountry.put("code", ulkeKodu);
 
+          given()
+                  .spec(reqSpec)
+                  .body(updCountry)
+
+                  .when()
+                  .put("/school-service/api/countries")
+
+                  .then()
+                  .log().body()
+                  .statusCode(200)
+                  .body("name", equalTo(ulkeAdi))
+                  .body("code", equalTo(ulkeKodu))
+          ;
 
     }
 
