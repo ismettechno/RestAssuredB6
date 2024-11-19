@@ -142,7 +142,6 @@ public class _09_CountryTest {
                 .log().body()
                 .statusCode(200)
         ;
-
     }
 
     @Test(dependsOnMethods = "deleteCountry")  //soru
@@ -159,6 +158,7 @@ public class _09_CountryTest {
                 .then()
                 .log().body()
                 .statusCode(400)
+                .body("message", containsStringIgnoringCase("Country not found"))
         ;
 
     }
