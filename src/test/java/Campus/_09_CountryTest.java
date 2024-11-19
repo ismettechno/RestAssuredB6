@@ -21,7 +21,7 @@ public class _09_CountryTest {
     RequestSpecification reqSpec;
     String ulkeAdi = "";
     String ulkeKodu = "";
-    String ulkeID="";
+    String ulkeID = "";
 
     @BeforeClass
     public void Setup() {
@@ -63,17 +63,17 @@ public class _09_CountryTest {
         createCountry.put("code", ulkeKodu);
 
         ulkeID =
-        given()
-                .spec(reqSpec)
-                .body(createCountry)
+                given()
+                        .spec(reqSpec)
+                        .body(createCountry)
 
-                .when()
-                .post("/school-service/api/countries")
+                        .when()
+                        .post("/school-service/api/countries")
 
-                .then()
-                .log().body()
-                .statusCode(201)
-                .extract().path("id")
+                        .then()
+                        .log().body()
+                        .statusCode(201)
+                        .extract().path("id")
         ;
     }
 
@@ -102,29 +102,64 @@ public class _09_CountryTest {
 
 
     @Test(dependsOnMethods = "CreateCountryNegative")
-    public void updateCountry()  {
+    public void updateCountry() {
 
-        ulkeAdi ="ismet Ülkesi 1";
-        ulkeKodu="is12345";
+        ulkeAdi = "ismet Ülkesi "+ randomUreteci.number().digits(5);
+        ulkeKodu = "is12345"+ randomUreteci.number().digits(5);
 
         Map<String, String> updCountry = new HashMap<>();
-        updCountry.put("id",  ulkeID);
+        updCountry.put("id", ulkeID);
         updCountry.put("name", ulkeAdi);
         updCountry.put("code", ulkeKodu);
 
-          given()
-                  .spec(reqSpec)
-                  .body(updCountry)
+        given()
+                .spec(reqSpec)
+                .body(updCountry)
 
-                  .when()
-                  .put("/school-service/api/countries")
+                .when()
+                .put("/school-service/api/countries")
 
-                  .then()
-                  .log().body()
-                  .statusCode(200)
-                  .body("name", equalTo(ulkeAdi))
-                  .body("code", equalTo(ulkeKodu))
-          ;
+                .then()
+                .log().body()
+                .statusCode(200)
+                .body("name", equalTo(ulkeAdi))
+                .body("code", equalTo(ulkeKodu))
+        ;
+    }
+
+    @Test(dependsOnMethods = "updateCountry")  //soru
+    public void deleteCountry() {
+
+        given()
+                .spec(reqSpec)
+                .pathParam("ulkeID",ulkeID)
+                .log().uri()
+
+                .when()
+                .delete("/school-service/api/countries/{ulkeID}")
+
+                .then()
+                .log().body()
+                .statusCode(200)
+        ;
+
+    }
+
+    @Test(dependsOnMethods = "deleteCountry")  //soru
+    public void deleteCountryNegative() {
+
+        given()
+                .spec(reqSpec)
+                .pathParam("ulkeID",ulkeID)
+                .log().uri()
+
+                .when()
+                .delete("/school-service/api/countries/{ulkeID}")
+
+                .then()
+                .log().body()
+                .statusCode(400)
+        ;
 
     }
 
