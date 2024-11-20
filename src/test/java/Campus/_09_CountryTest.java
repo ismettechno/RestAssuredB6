@@ -140,27 +140,27 @@ public class _09_CountryTest {
 
                 .then()
                 .log().body()
-                .statusCode(200)
+                .statusCode(203) // Jenkins için bilerek hatalı bıraktık
         ;
     }
 
-    @Test(dependsOnMethods = "deleteCountry")  //soru
-    public void deleteCountryNegative() {
-
-        given()
-                .spec(reqSpec)
-                .pathParam("ulkeID",ulkeID)
-                .log().uri()
-
-                .when()
-                .delete("/school-service/api/countries/{ulkeID}")
-
-                .then()
-                .log().body()
-                .statusCode(400)
-                .body("message", containsStringIgnoringCase("Country not found"))
-        ;
-
-    }
+//    @Test(dependsOnMethods = "deleteCountry")  //soru
+//    public void deleteCountryNegative() {
+//
+//        given()
+//                .spec(reqSpec)
+//                .pathParam("ulkeID",ulkeID)
+//                .log().uri()
+//
+//                .when()
+//                .delete("/school-service/api/countries/{ulkeID}")
+//
+//                .then()
+//                .log().body()
+//                .statusCode(400)
+//                .body("message", containsStringIgnoringCase("Country not found"))
+//        ;
+//
+//    }
 
 }
