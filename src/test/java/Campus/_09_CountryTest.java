@@ -140,7 +140,7 @@ public class _09_CountryTest {
 
                 .then()
                 .log().body()
-                .statusCode(203) // Jenkins için bilerek hatalı bıraktık
+                .statusCode(203) // Jenkins için bilerek hatalı  bıraktık
         ;
     }
 
